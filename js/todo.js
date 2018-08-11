@@ -10,6 +10,7 @@ const app = new Vue({
         item:this.newItem
       };
       this.todos.push(todo);
+      this.newItem = "";
     }
   }
 })

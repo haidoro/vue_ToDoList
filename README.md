@@ -106,4 +106,24 @@ const app = new Vue({
   }
 })
 ```
+尚、タスクを追加できるようになりましたが、入力BOXには追加した値がそのまま残ります。これは不自然で使いにくいので`this.newItem = "";`のコードを追加します。
 
+```
+const app = new Vue({
+  el: '#app',
+  data:{
+    newItem:'',
+    todos:[]
+  },
+  methods:{
+    addItem: function(e){
+      var todo = {
+        item:this.newItem
+      };
+      this.todos.push(todo);
+      this.newItem = "";
+    }
+  }
+})
+
+```
