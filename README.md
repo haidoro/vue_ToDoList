@@ -135,7 +135,68 @@ const app = new Vue({
 if(this.newItem == '') return;
 ```
 
+## リスト表示
+v-forを活用してリスト表示の仕組みを作ります。
+実は簡単でHTML側に次のコードを記述するだけです。
+```
+<ul>
+  <li v-for="todo in todos">{{todo.item}}</li>
+</ul>
+```
+仮に置いていたpreタグは必要ないので決しておきます。
 
+```
+<div id="app">
+    <h2>TODO List</h2>
+    <form v-on:submit.prevent>
+      <input type="text" v-model="newItem">
+      <button v-on:click="addItem">Add</button>
+    </form>
+    <ul>
+      <li v-for="todo in todos">{{todo.item}}</li>
+    </ul>
+  </div>
+```
+
+## タスクの完了と未完了を管理
+タスク終了したものには取り消し線をつけたい。
+
+HTML側にはinput type="checkbox"要素を追加します。
+「v-model="todo.isDone"」とすることでチェックが入るとtrueになるような仕掛けを作ります。
+
+また表示部分の{{}}にはspanタグを追加してv-bindを活用します。チェックBOXにチェックが入ると「todo.isDone」は「true」に変わりますのでdoneというクラス名が表示されて活用されます。CSSには「.done{text-decoration: line-through;}」として取消線を表示させます。
+
+```
+<ul>
+  <li v-for="todo in todos">
+    <input type="checkbox" v-model="todo.isDone">
+      <span v-bind:class="{done:todo.isDone}">{{todo.item}}</span>
+  </li>
+</ul>
+```
+
+JavaScript側には 「isDone:false」を追加します。チェックBOXが初期状態はチェックなしの状態ですからここの初期状態も「false」にしておきます。チェックされると内部的には「true」に変化するわけです。
+
+```
+const app = new Vue({
+  el: '#app',
+  data:{
+    newItem:'',
+    todos:[]
+  },
+  methods:{
+    addItem: function(e){
+      if(this.newItem == '') return;
+      var todo = {
+        item:this.newItem,
+        isDone:false
+      };
+      this.todos.push(todo);
+      this.newItem = "";
+    }
+  }
+})
+```
 
 
 
