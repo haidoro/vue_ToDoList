@@ -30,3 +30,80 @@ const app = new Vue({
   el: '#app'
 })
 ```
+## イベントの設定
+Addボタンをクリックした時の挙動を作成
+
+index.html
+```
+<button v-on:click="addItem">Add</button>
+```
+
+todo.js
+```
+const app = new Vue({
+  el: '#app',
+  methods:{
+    addItem: function(e){
+      alert(e);
+    }
+  }
+})
+```
+
+v-on:submit.preventを記述することでページ遷移を防止することができます。
+```
+<form v-on:submit.prevent>
+```
+
+## 双方向データバインディング
+
+`<pre>{{$data}}</pre>`は確認用です。
+```
+<div id="app">
+    <h2>TODO List</h2>
+    <form v-on:submit.prevent>
+      <input type="text" v-model="newItem">
+      <button v-on:click="addItem">Add</button>
+    </form>
+    <pre>{{$data}}</pre>
+  </div>
+```
+
+todo.js
+```
+const app = new Vue({
+  el: '#app',
+  data:{
+    newItem:''
+  },
+  methods:{
+    addItem: function(e){
+      alert(e);
+    }
+  }
+})
+```
+
+## タスクの追加
+
+push()で追加
+
+todo.js
+```
+const app = new Vue({
+  el: '#app',
+  data:{
+    newItem:'',
+    todos:[]
+  },
+  methods:{
+    addItem: function(e){
+      var todo = {
+        item:this.newItem
+      };
+      this.todos.push(todo);
+    }
+  }
+})
+```
+
