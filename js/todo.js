@@ -6,6 +6,7 @@ const app = new Vue({
   },
   methods:{
     addItem: function(e){
+      if(this.newItem == '') return;
       var todo = {
         item:this.newItem
       };
