@@ -1,4 +1,9 @@
 # TODO List作成
+TODO Listの仕組みは、入力BOXに入力された値を配列に保管してその配列を順番に表示する仕組みを作ることになります。
+また、削除ボタンをクリックすると該当の値を配列から削除します。
+Vue.jsのディレクティブをうまく使いながらこれらを組み立てて行きます。
+尚、基本となる動作は配列の追加と配列の削除をJavaScriptで実現することです。これはVue.jsではなくJavaScriptの基本的な学習となります。
+
 ## ファイルの準備
 index.htmlとjsフォルダにtodo.jsファイルを作成
 
@@ -198,12 +203,31 @@ const app = new Vue({
 })
 ```
 
+## 削除
+deleteボタンの作成
 
+JavaScript関数で削除を行います。引数にとるindexがポイントです。これは配列のindxになります。
 
+```
+deleteItem:function(index){
+  this.todos.splice(index,1)
+}
+```
 
+HTML側で削除ボタンを作ります。
 
+```
+<button v-on:click="deleteItem(index)">Delete</button>
+```
+さらにv-forの値を「v-for="(todo,index) in todos"」のように変更します。
 
-
+```
+  <li v-for="(todo,index) in todos">
+        <input type="checkbox" v-model="todo.isDone">
+        <span v-bind:class="{done:todo.isDone}">{{todo.item}}</span>
+        <button v-on:click="deleteItem(index)">Delete</button>
+      </li>
+```
 
 
 
