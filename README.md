@@ -43,6 +43,8 @@ index.html
 <button v-on:click="addItem">Add</button>
 ```
 
+今の段階では、functionの中身は簡易的にalert()を入れています。
+
 todo.js
 ```
 const app = new Vue({
@@ -90,6 +92,7 @@ const app = new Vue({
 ```
 
 ## タスクの追加
+ここからmethodsの中のfanctionの命令を作成していきます。
 
 push()で追加
 
